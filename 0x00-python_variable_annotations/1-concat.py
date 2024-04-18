@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""A python functions that concatenates two different strings
+"""
 
 
 def concat(str1: str, str2: str) -> str:
