@@ -2,9 +2,8 @@
 """a type-annotated function floor which takes a float n as argument and
 returns the floor of the float
 """
-import math
 
 
 def floor(n: float) -> float:
     """returns the floor of the float"""
-    return math.floor(n)
+    return int(n) if n >= 0 else int(n) - 1
