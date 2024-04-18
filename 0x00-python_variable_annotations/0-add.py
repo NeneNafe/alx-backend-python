@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""A function annotations that adds to float numbers
+"""
 
 
 def add(a: float, b: float) -> float:
