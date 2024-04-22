@@ -5,12 +5,12 @@ import random
 import asyncio
 
 
-async def wait_random(max_delay: float = 10.0) -> float:
+async def wait_random(max_delay: int = 10) -> float:
     """an asynchronous coroutine that takes in an integer argument
 
     Args:
         max_delay (int): The argument
     """
-    delay = random.uniform(0, max_delay)
+    delay = max_delay * random.random()
     await asyncio.sleep(delay)
     return delay
