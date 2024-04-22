@@ -16,7 +16,7 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
         task = task_wait_random(max_delay)
         spawn_task.append(task)
 
-    for task in asyncio.as_completed((spawn_task)):
+    for task in asyncio.as_completed(spawn_task):
         delay = await task
         delays.append(delay)
 
