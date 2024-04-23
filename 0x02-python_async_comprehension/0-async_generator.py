@@ -3,9 +3,10 @@
 
 import random
 import asyncio
+from typing import Generator
 
 
-async def async_generator():
+async def async_generator() -> Generator[float, None, None]:
     """Takes no args but loops 10 times by picking a random number
     between the numbers 0 - 10"""
     for _ in range(10):
