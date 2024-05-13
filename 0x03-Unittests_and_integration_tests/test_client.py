@@ -9,6 +9,8 @@ from parameterized import parameterized, parameterized_class
 from utils import access_nested_map, get_json, memoize
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
+import utils
+import client
 
 
 class TestGithubOrgClient(TestCase):
@@ -81,9 +83,22 @@ class TestIntegrationGithubOrgClient(TestCase):
         mock_repos.json = Mock(return_value=repos)
 
         cls.get_patcher = patch('requests.get')
+        cls.get = cls.get_patcher.start()
+
+        options = {cls.org_payload["repos_url"]: mock_repos}
         cls.get.side_effect = lambda y: options.get(y, mock_org)
 
     @classmethod
     def tearDownClass(cls):
         """ Stop the patcher """
         cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        """ Test the public repos """
+        actual = GithubOrgClient("x")
+        self.assertEqual(actual.org, self.org_payload)
+        self.assertEqual(actual.repos_payload, self.repos_payload)
+        self.assertEqual(actual.public_repos(), self.expected_repos)
+        self.assertEqual(actual.public_repos("NONEXISTENT"), [])
+        self.get.assert_has_calls([call("https://api.github.com/orgs/x"),
+                               call(self.org_payload["repos_url"])])
