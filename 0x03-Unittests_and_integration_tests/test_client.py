@@ -81,6 +81,7 @@ class TestIntegrationGithubOrgClient(TestCase):
         cls.mock_org = mock_org
         mock_repos = Mock()
         mock_repos.json = Mock(return_value=repos)
+        cls.mock_repos = mock_repos
 
         cls.get_patcher = patch('requests.get')
         cls.get = cls.get_patcher.start()
